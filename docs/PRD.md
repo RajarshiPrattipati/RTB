@@ -73,10 +73,11 @@ A strategic, collectible spell-based **real-time simultaneous action** combat ga
 
 **Battle Flow:**
 ```
-1. Select 6 spells from collection
-2. Queue matchmaking (AI or PvP)
-3. Battle starts with base resources (Mana: 0, Energy: 50)
-4. Every 2-second interval:
+1. Check Hero status (revive if dead, costs Souls)
+2. Select build (Primary or Secondary - already locked in)
+3. Queue matchmaking (AI or PvP)
+4. Battle starts with base resources (Mana: 0, Energy: 50)
+5. Every 2-second interval:
    a. If no spell selected → Auto-Charge (+20 Mana)
    b. If spell selected → Queue for resolution
    c. Both players' actions resolve simultaneously
@@ -84,8 +85,16 @@ A strategic, collectible spell-based **real-time simultaneous action** combat ga
    e. Status effects tick
    f. Resources update
    g. Next 2-second interval begins
-5. Victory/Defeat screen
-6. Rewards distribution
+6. Battle ends when HP = 0
+7. If you died:
+   a. Hero enters Death State
+   b. Prompt: "Revive Hero? Cost: X Souls"
+   c. If revived → Return to menu
+   d. If not revived → Hero locked until revival
+8. If you won:
+   a. Gain Soul Fragment (+1 Soul per kill)
+   b. Victory rewards (Gold, XP, possible spell drop)
+9. Rewards distribution
 ```
 
 **Key Differences from Turn-Based:**
@@ -360,16 +369,51 @@ All actions resolve simultaneously, but execution order matters for animations/e
 
 ### 4. Progression Systems
 
-#### 4.1 Player Progression
+#### 4.1 Hero & Death System
 **Priority:** P0
+
+**Hero System:**
+- Players have a **Hero** that represents them in battle
+- Each Hero has:
+  - **Primary Build**: 6 spell slots (locked to this hero)
+  - **Secondary Build**: 6 spell slots (alternative loadout)
+  - **Visual Character**: Customizable avatar
+  - **Death State**: Can be revived with Souls
+
+**Death & Revival Mechanic:**
+When your Hero dies (HP = 0):
+- **Hero enters Death State** (cannot battle)
+- **Revival Cost**: Souls required to revive
+  - First death: 10 Souls
+  - Second death: 25 Souls
+  - Third+ death: 50 Souls (caps here)
+- **Soul Sources**:
+  - Kill opponent in battle: +1 Soul Fragment
+  - Complete missions: +5-10 Souls
+  - Daily login: +3 Souls
+  - Soul Shop: Buy with Gold (100 Gold = 1 Soul)
+- **Revival Process**: Tap "Revive Hero" → Spend Souls → Instant revival
+
+**Spell Lock System:**
+- **Spells are LOCKED to Hero builds** once equipped
+- **Primary Build**: Main 6 spells (cannot remove without item)
+- **Secondary Build**: Alt 6 spells (cannot remove without item)
+- **Unlock Spell Cost**: Requires **"Spell Unlocker"** item
+  - Costs: 100 Gems (premium currency)
+  - Unlocks 1 spell slot
+  - Spell returns to collection
+  - Can then equip different spell
+- **Strategic Lock-In**: Choose wisely before locking
+- **Anti-Spam**: Prevents constant deck swapping
 
 **Player Level System:**
 - XP from battles (50 win / 25 loss)
 - Levels 1-100
 - Unlocks:
-  - Level 5: 6th spell slot
+  - Level 5: 6th spell slot (Primary)
   - Level 10: Spell upgrades
-  - Level 15: Spell fusion
+  - Level 15: Secondary build unlocked
+  - Level 20: Spell fusion
   - Level 25: Ranked mode
   - Level 50: Guild creation
 
@@ -425,17 +469,22 @@ School Mastery (per spell school):
 **Currencies:**
 | Currency | Source | Use |
 |----------|--------|-----|
-| **Gold** | Battle rewards | Spell upgrades, shop |
+| **Gold** | Battle rewards | Spell upgrades, shop, buy Souls |
+| **Souls** | Battles (kills), Missions, Shop | **Hero revival** (critical!) |
 | **Spell Shards** | Disenchant spells | Crafting specific spells |
 | **Wildcards** | Track milestones | Fill missing spell in set |
-| **Gems (Premium)** | Purchases, Achievements, Events | Cosmetics, marketplace trades, battle pass |
+| **Gems (Premium)** | Purchases, Achievements, Events | **Spell Unlockers**, Cosmetics, marketplace, battle pass |
 
 **Monetization Philosophy:**
-- ✅ **NO Pay-to-Win**: Premium currency CANNOT buy gameplay advantages
+- ✅ **NO Pay-to-Win**: Premium currency CANNOT buy power
+  - ❗**EXCEPTION: Spell Unlockers** (convenience item, allows build changes)
+  - 100 Gems per unlock (one spell slot freed)
+  - Does NOT give new spells, just unlocks to swap
 - ✅ **Cosmetic-Only Purchases**: Spell skins, character skins, animations, UI themes
 - ✅ **Premium Battle Pass**: Cosmetic rewards + accelerated progression (NOT exclusive spells)
 - ✅ **Spell Marketplace**: Trade spells with other players using Gems
 - ✅ **Fair F2P**: All spells obtainable through gameplay
+- ✅ **Death Mechanic**: Souls grindable F2P (Gold → Souls conversion available)
 
 **Disenchant Values:**
 | Rarity | Shards | Wildcard Progress |
@@ -608,13 +657,24 @@ Player-to-player spell trading system using premium currency (Gems) as the mediu
 - **Action Button**: Large "Start Battle" CTA in center
 - **Quick Access**: Daily missions, rewards notifications
 
-**2. Deck Builder (Mobile-First):**
-- **Top Section**: 6 spell slots (2 rows x 3 columns on mobile)
-- **Bottom Section**: Collection browser (scrollable card grid)
-- **Tap-to-Add**: Tap spell in collection to add to deck
-- **Long-Press**: Long-press spell slot to remove
-- **Deck Stats Bar**: Sticky header with avg cost, element distribution
-- **Save/Load**: Quick deck switcher dropdown
+**2. Hero Build Manager (Mobile-First):**
+- **Top Banner**: Hero avatar + status (Alive/Dead)
+  - If Dead: "💀 Revive Hero? 25 Souls" button (red, pulsing)
+  - If Alive: ✅ "Hero Ready"
+- **Build Tabs**: [Primary] [Secondary] (swipe or tap to switch)
+- **Spell Slots**: 6 slots (2 rows x 3 columns on mobile)
+  - **Locked spells**: 🔒 icon in corner
+  - **Empty slots**: "+" to add from collection
+  - **Tap locked spell**: Shows "Unlock? 100 Gems" prompt
+- **Bottom Section**: Collection browser (scrollable, only unlocked spells)
+- **Tap-to-Lock**: Tap spell in collection → Confirm "Lock to Primary/Secondary?"
+  - Warning: "Cannot remove without Spell Unlocker (100 Gems)"
+- **Unlock Flow**:
+  - Tap locked spell → "Unlock this spell slot?"
+  - Costs 100 Gems → Spell returns to collection
+  - Slot becomes empty, can equip new spell
+- **Build Stats Bar**: Sticky header with avg cost, element distribution
+- **Soul Counter**: Top-right, always visible (e.g., "👻 125 Souls")
 
 **3. Battle Screen (Mobile-First - Real-Time UI):**
 - **Top 20%**: Opponent info
