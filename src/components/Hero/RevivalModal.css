@@ -1,0 +1,357 @@
+/* RevivalModal.css */
+
+/* Modal Overlay */
+.revival-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Container */
+.revival-modal {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  border: 2px solid #ef4444;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 2rem 1.5rem;
+}
+
+/* Hero Display */
+.hero-display {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero-avatar-large {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  border: 3px solid #ef4444;
+  overflow: hidden;
+}
+
+.hero-avatar-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-avatar-large.grayscale img {
+  filter: grayscale(100%);
+  opacity: 0.6;
+}
+
+.death-overlay-large {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  animation: floatDeath 2s ease-in-out infinite;
+}
+
+.hero-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.death-message {
+  margin: 0;
+  color: #d1d5db;
+  font-size: 1rem;
+}
+
+/* Revival Info */
+.revival-info {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cost-display,
+.balance-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+}
+
+.cost-display {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.75rem;
+}
+
+.cost-label,
+.balance-label {
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+.cost-amount,
+.balance-amount {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.cost-amount .icon,
+.balance-amount .icon {
+  font-size: 1.5rem;
+}
+
+.cost-amount.affordable {
+  color: #10b981;
+}
+
+.cost-amount.too-expensive {
+  color: #ef4444;
+}
+
+.balance-amount {
+  color: white;
+}
+
+.cost-amount .label,
+.balance-amount .label {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+/* Shortfall Warning */
+.shortfall-warning {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.warning-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.warning-text {
+  color: white;
+}
+
+.warning-text strong {
+  color: #fecaca;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.warning-text p {
+  margin: 0;
+  color: #d1d5db;
+  font-size: 0.875rem;
+}
+
+/* Death Count Info */
+.death-count-info {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.info-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-label {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Modal Footer */
+.modal-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-revive {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.btn-revive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+}
+
+.btn-revive.pulse {
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+
+.btn-shop {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.btn-shop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5);
+}
+
+.btn-cancel {
+  background: #4b5563;
+  color: #d1d5db;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cancel:hover {
+  background: #6b7280;
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.7);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .revival-modal {
+    width: 95%;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 1rem;
+  }
+
+  .hero-avatar-large {
+    width: 100px;
+    height: 100px;
+  }
+
+  .death-overlay-large {
+    font-size: 2.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+  }
+
+  .death-count-info {
+    flex-direction: column;
+  }
+}

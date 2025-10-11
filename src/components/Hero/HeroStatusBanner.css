@@ -1,0 +1,267 @@
+/* HeroStatusBanner.css */
+.hero-status-banner {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 12px;
+  gap: 1rem;
+  min-height: 100px;
+  transition: all 0.3s ease;
+}
+
+/* Alive State */
+.hero-status-banner.alive {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid #5a67d8;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Dead State */
+.hero-status-banner.dead {
+  background: linear-gradient(135deg, #434343 0%, #000000 100%);
+  border: 2px solid #ff4444;
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+}
+
+/* No Hero State */
+.hero-status-banner.no-hero {
+  background: #f3f4f6;
+  border: 2px dashed #d1d5db;
+  justify-content: center;
+}
+
+/* Hero Avatar */
+.hero-avatar {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.hero-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-avatar.grayscale img {
+  filter: grayscale(100%);
+  opacity: 0.6;
+}
+
+.death-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  animation: floatDeath 2s ease-in-out infinite;
+}
+
+@keyframes floatDeath {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-5px);
+  }
+}
+
+/* Hero Info */
+.hero-info {
+  flex: 1;
+  color: white;
+}
+
+.hero-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.alive-badge {
+  background: rgba(16, 185, 129, 0.3);
+  border: 1px solid #10b981;
+  color: #d1fae5;
+}
+
+.dead-badge {
+  background: rgba(239, 68, 68, 0.3);
+  border: 1px solid #ef4444;
+  color: #fecaca;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Hero Stats (Alive) */
+.hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: white;
+  font-size: 0.875rem;
+}
+
+.stat {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.stat-label {
+  opacity: 0.8;
+}
+
+.stat-value {
+  font-weight: 600;
+}
+
+/* Revival Section (Dead) */
+.revival-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  min-width: 250px;
+}
+
+.revival-cost,
+.soul-balance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 0.875rem;
+}
+
+.revival-cost .label,
+.soul-balance .label {
+  opacity: 0.8;
+}
+
+.revival-cost .cost {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.revival-cost .cost.affordable {
+  color: #10b981;
+}
+
+.revival-cost .cost.too-expensive {
+  color: #ef4444;
+}
+
+.soul-balance .amount {
+  font-weight: 600;
+}
+
+.warning {
+  padding: 0.5rem;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  border-radius: 6px;
+  color: #fecaca;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* Revive Button */
+.revive-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.revive-btn:not(.disabled) {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.revive-btn:not(.disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+}
+
+.revive-btn.pulse {
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.7);
+  }
+}
+
+.revive-btn.disabled {
+  background: #6b7280;
+  color: #d1d5db;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hero-status-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .revival-section {
+    min-width: 100%;
+  }
+
+  .hero-stats {
+    align-items: center;
+  }
+
+  .stat {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+/* No Hero Message */
+.no-hero .message {
+  color: #6b7280;
+  font-size: 1rem;
+  text-align: center;
+}

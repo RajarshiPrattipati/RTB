@@ -1,0 +1,296 @@
+/**
+ * BuildManager Styles
+ * Styling for hero build management interface
+ */
+
+.build-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.build-manager.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.build-manager.no-hero {
+  padding: 3rem;
+  text-align: center;
+}
+
+.build-manager.no-hero .message {
+  color: #e94560;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Build Tabs */
+.build-tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0;
+}
+
+.build-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.build-tab:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.build-tab.active {
+  background: rgba(15, 156, 255, 0.2);
+  border-color: #0f9cff;
+  color: #0f9cff;
+  box-shadow: 0 -4px 12px rgba(15, 156, 255, 0.3);
+}
+
+.build-tab.locked {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.build-tab:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.tab-icon {
+  font-size: 1.3rem;
+}
+
+.tab-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.unlock-level {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Build Info */
+.build-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.build-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.status-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+}
+
+.status-value.complete {
+  color: #4caf50;
+  background: rgba(76, 175, 80, 0.2);
+}
+
+.status-value.incomplete {
+  color: #ff9800;
+  background: rgba(255, 152, 0, 0.2);
+}
+
+.warning-banner {
+  padding: 0.75rem;
+  background: rgba(255, 152, 0, 0.2);
+  border: 1px solid #ff9800;
+  border-radius: 6px;
+  color: #ffb74d;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Spell Slot Grid */
+.spell-slot-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .spell-slot-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .spell-slot-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Spell Selector */
+.spell-selector {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: #1a1a2e;
+  border: 2px solid #0f9cff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.selector-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.selector-header h4 {
+  color: #0f9cff;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.close-selector {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-selector:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.available-spells {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.no-spells {
+  padding: 3rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+}
+
+.spell-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.spell-card:hover {
+  background: rgba(15, 156, 255, 0.1);
+  border-color: #0f9cff;
+  transform: translateX(4px);
+}
+
+.spell-card .spell-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.spell-card .spell-info {
+  flex: 1;
+}
+
+.spell-card .spell-name {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.spell-card .spell-type {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+/* Battle Ready Banner */
+.battle-ready-banner {
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.3) 0%, rgba(76, 175, 80, 0.1) 100%);
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+  color: #81c784;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+  }
+}

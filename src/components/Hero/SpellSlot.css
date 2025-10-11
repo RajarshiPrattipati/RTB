@@ -1,0 +1,233 @@
+/**
+ * SpellSlot Styles
+ * Styling for individual spell slot components
+ */
+
+.spell-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  min-height: 140px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.spell-slot.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Empty Slot */
+.spell-slot.empty {
+  background: rgba(255, 255, 255, 0.03);
+  border-style: dashed;
+}
+
+.spell-slot.empty:hover:not(.disabled) {
+  background: rgba(15, 156, 255, 0.1);
+  border-color: #0f9cff;
+  transform: scale(1.02);
+}
+
+.add-icon {
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.add-text {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.slot-number {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+/* Locked Slot */
+.spell-slot.locked {
+  background: linear-gradient(135deg, rgba(233, 69, 96, 0.1) 0%, rgba(233, 69, 96, 0.05) 100%);
+  border-color: rgba(233, 69, 96, 0.3);
+}
+
+.spell-slot.locked:hover:not(.disabled) {
+  border-color: #e94560;
+  box-shadow: 0 4px 16px rgba(233, 69, 96, 0.3);
+  transform: translateY(-2px);
+}
+
+.spell-slot.locked .unlock-hint {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.spell-slot.locked:hover:not(.disabled) .unlock-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Unlocked Slot */
+.spell-slot.unlocked {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.spell-slot.unlocked:hover:not(.disabled) {
+  border-color: #4caf50;
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Spell Content */
+.spell-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.spell-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.spell-details {
+  text-align: center;
+  width: 100%;
+}
+
+.spell-name {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spell-type {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Lock/Unlock Icons */
+.lock-icon,
+.unlock-icon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
+.lock-icon {
+  color: #e94560;
+}
+
+.unlock-icon {
+  color: #4caf50;
+}
+
+/* Unlock Hint */
+.unlock-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: linear-gradient(to top, rgba(233, 69, 96, 0.8) 0%, rgba(233, 69, 96, 0.6) 100%);
+  backdrop-filter: blur(4px);
+}
+
+.unlock-icon {
+  position: static;
+  font-size: 1rem;
+}
+
+.unlock-text {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Error State */
+.spell-slot.error,
+.spell-slot.unknown {
+  background: rgba(233, 69, 96, 0.1);
+  border-color: rgba(233, 69, 96, 0.3);
+  cursor: not-allowed;
+}
+
+.error-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.error-text {
+  color: #e94560;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(15, 156, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(15, 156, 255, 0.6);
+  }
+}
+
+.spell-slot.highlight {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .spell-slot {
+    min-height: 120px;
+    padding: 0.75rem;
+  }
+
+  .spell-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .spell-name {
+    font-size: 0.85rem;
+  }
+
+  .spell-type {
+    font-size: 0.7rem;
+  }
+
+  .add-icon {
+    font-size: 2.5rem;
+  }
+}

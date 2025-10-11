@@ -1,0 +1,335 @@
+/**
+ * SoulShop Styles
+ * Styling for Soul shop component
+ */
+
+.soul-shop {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Header */
+.shop-header {
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.shop-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.shop-description {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Player Currencies */
+.player-currencies {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.currency-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.currency-icon {
+  font-size: 1.5rem;
+}
+
+.currency-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.currency-value {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Shop Message */
+.shop-message {
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.shop-message.success {
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid #4caf50;
+  color: #81c784;
+}
+
+.shop-message.error {
+  background: rgba(233, 69, 96, 0.2);
+  border: 1px solid #e94560;
+  color: #f48fb1;
+}
+
+/* Soul Packages */
+.soul-packages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.soul-package {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.soul-package:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.soul-package.popular {
+  border-color: #ffb74d;
+  background: linear-gradient(135deg, rgba(255, 183, 77, 0.1) 0%, rgba(255, 183, 77, 0.05) 100%);
+}
+
+.soul-package.unaffordable {
+  opacity: 0.6;
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ffb74d 0%, #ff9800 100%);
+  color: #1a1a2e;
+  padding: 0.25rem 1rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(255, 183, 77, 0.4);
+}
+
+.package-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.package-icon {
+  font-size: 3rem;
+}
+
+.package-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.souls-amount {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.discount-badge {
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid #4caf50;
+  color: #81c784;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.package-cost {
+  text-align: center;
+}
+
+.cost-amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.cost-icon {
+  font-size: 1.3rem;
+}
+
+.cost-value {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.savings {
+  color: #4caf50;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.buy-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #0f9cff 0%, #0d7ecf 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.buy-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 156, 255, 0.4);
+}
+
+.buy-btn:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+}
+
+.buy-btn.purchasing {
+  background: rgba(255, 255, 255, 0.1);
+  cursor: wait;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Info Box */
+.info-box {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(15, 156, 255, 0.1);
+  border: 1px solid rgba(15, 156, 255, 0.3);
+  border-radius: 10px;
+}
+
+.info-icon {
+  font-size: 1.5rem;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-content strong {
+  color: #64b5f6;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.info-content p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Conversion Info */
+.conversion-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.conversion-label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.conversion-rate {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .soul-shop {
+    padding: 1.5rem;
+  }
+
+  .shop-title {
+    font-size: 1.5rem;
+  }
+
+  .player-currencies {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .soul-packages {
+    grid-template-columns: 1fr;
+  }
+
+  .conversion-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
