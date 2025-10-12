@@ -1,11 +1,21 @@
 import styles from './styles.module.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useAIOpponent, useBattleSequence } from 'hooks';
 import { opponentStats, playerStats, wait } from 'shared';
 import { BattleMenu, PlayerSummary, BattleAnnouncer } from 'components';
+import { GlobalContext } from '../../context/GlobalStateProvider';
+import gameManager from '../../systems/integration/GameManager';
 
 export const Battle = ({ onGameEnd }) => {
+  const { state } = useContext(GlobalContext);
   const [sequence, setSequence] = useState({});
+  const [battleData, setBattleData] = useState({
+    spellsCast: 0,
+    damageDealt: 0,
+    hpHealed: 0,
+    fireDamage: 0,
+    damageTaken: 0,
+  });
 
   const {
     turn,
@@ -25,14 +35,38 @@ export const Battle = ({ onGameEnd }) => {
     }
   }, [turn, aiChoice, inSequence]);
 
+  // Track battle actions for mission progress
+  useEffect(() => {
+    if (sequence.mode && sequence.turn === 0) {
+      setBattleData(prev => ({
+        ...prev,
+        spellsCast: prev.spellsCast + (sequence.mode === 'magic' ? 1 : 0),
+      }));
+    }
+  }, [sequence]);
+
   useEffect(() => {
     if (playerHealth === 0 || opponentHealth === 0) {
       (async () => {
         await wait(1000);
-        onGameEnd(playerHealth === 0 ? opponentStats : playerStats);
+
+        const playerVictory = playerHealth > 0;
+        const winner = playerVictory ? playerStats : opponentStats;
+
+        // Emit battle end event with complete data
+        gameManager.emit('battle:end', {
+          playerVictory,
+          playerHp: playerHealth,
+          opponentHp: opponentHealth,
+          difficulty: 'normal',
+          perfectVictory: playerVictory && battleData.damageTaken === 0,
+          ...battleData,
+        });
+
+        onGameEnd(winner);
       })();
     }
-  }, [playerHealth, opponentHealth, onGameEnd]);
+  }, [playerHealth, opponentHealth, onGameEnd, battleData]);
 
   return (
     <>
