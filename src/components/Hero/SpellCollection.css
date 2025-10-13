@@ -1,0 +1,352 @@
+/**
+ * SpellCollection Styles
+ */
+
+.spell-collection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.spell-collection.empty {
+  padding: 3rem;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.empty-hint {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Header */
+.collection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.collection-header h3 {
+  margin: 0;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.collection-count {
+  color: #0f9cff;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Filters */
+.collection-filters {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.filter-select {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-select:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #0f9cff;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #0f9cff;
+  box-shadow: 0 0 0 2px rgba(15, 156, 255, 0.2);
+}
+
+.filter-select option {
+  background: #1a1a2e;
+  color: white;
+}
+
+/* Spell Grid */
+.spell-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.spell-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.spell-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.spell-grid::-webkit-scrollbar-thumb {
+  background: rgba(15, 156, 255, 0.5);
+  border-radius: 4px;
+}
+
+.spell-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 156, 255, 0.7);
+}
+
+/* Spell Item */
+.spell-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.spell-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #0f9cff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 156, 255, 0.3);
+}
+
+.spell-item.selected {
+  background: rgba(15, 156, 255, 0.2);
+  border-color: #0f9cff;
+  box-shadow: 0 0 16px rgba(15, 156, 255, 0.4);
+}
+
+.spell-item-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.spell-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.spell-item-name {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spell-item-type {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.type-damage {
+  background: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  border: 1px solid #ef4444;
+}
+
+.type-heal {
+  background: rgba(16, 185, 129, 0.3);
+  color: #6ee7b7;
+  border: 1px solid #10b981;
+}
+
+.type-buff {
+  background: rgba(59, 130, 246, 0.3);
+  color: #93c5fd;
+  border: 1px solid #3b82f6;
+}
+
+.type-debuff {
+  background: rgba(168, 85, 247, 0.3);
+  color: #c4b5fd;
+  border: 1px solid #a855f7;
+}
+
+.type-utility {
+  background: rgba(234, 179, 8, 0.3);
+  color: #fde047;
+  border: 1px solid #eab308;
+}
+
+.type-default {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.spell-item-stat {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Spell Details Panel */
+.spell-details-panel {
+  padding: 1.5rem;
+  background: rgba(15, 156, 255, 0.1);
+  border: 2px solid #0f9cff;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+.details-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(15, 156, 255, 0.3);
+  margin-bottom: 1rem;
+}
+
+.details-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.details-header h4 {
+  margin: 0 0 0.5rem 0;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.spell-type-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.details-body {
+  color: white;
+}
+
+.spell-description {
+  margin: 0 0 1.5rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.spell-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.stat-value {
+  color: #0f9cff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .spell-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .collection-filters {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-select {
+    flex: 1;
+  }
+
+  .details-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .spell-stats {
+    grid-template-columns: 1fr;
+  }
+}

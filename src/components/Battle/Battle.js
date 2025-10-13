@@ -1,13 +1,11 @@
 import styles from './styles.module.css';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAIOpponent, useBattleSequence } from 'hooks';
 import { opponentStats, playerStats, wait } from 'shared';
 import { BattleMenu, PlayerSummary, BattleAnnouncer } from 'components';
-import { GlobalContext } from '../../context/GlobalStateProvider';
 import gameManager from '../../systems/integration/GameManager';
 
 export const Battle = ({ onGameEnd }) => {
-  const { state } = useContext(GlobalContext);
   const [sequence, setSequence] = useState({});
   const [battleData, setBattleData] = useState({
     spellsCast: 0,

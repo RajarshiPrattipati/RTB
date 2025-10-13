@@ -1,0 +1,316 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-10-13",
+  "description": "Master game mechanics configuration",
+
+  "rarity": {
+    "common": {
+      "name": "Common",
+      "color": "#9E9E9E",
+      "multiplier": 1.0,
+      "dropRate": 0.50
+    },
+    "uncommon": {
+      "name": "Uncommon",
+      "color": "#4CAF50",
+      "multiplier": 1.2,
+      "dropRate": 0.30
+    },
+    "rare": {
+      "name": "Rare",
+      "color": "#2196F3",
+      "multiplier": 1.5,
+      "dropRate": 0.15
+    },
+    "epic": {
+      "name": "Epic",
+      "color": "#9C27B0",
+      "multiplier": 2.0,
+      "dropRate": 0.04
+    },
+    "legendary": {
+      "name": "Legendary",
+      "color": "#FF9800",
+      "multiplier": 3.0,
+      "dropRate": 0.009
+    },
+    "mythic": {
+      "name": "Mythic",
+      "color": "#F44336",
+      "multiplier": 5.0,
+      "dropRate": 0.001
+    }
+  },
+
+  "elements": {
+    "fire": {
+      "name": "Fire",
+      "color": "#FF5722",
+      "icon": "🔥",
+      "advantages": ["ice", "earth"],
+      "weaknesses": ["water"]
+    },
+    "water": {
+      "name": "Water",
+      "color": "#2196F3",
+      "icon": "💧",
+      "advantages": ["fire", "earth"],
+      "weaknesses": ["lightning", "ice"]
+    },
+    "earth": {
+      "name": "Earth",
+      "color": "#795548",
+      "icon": "🪨",
+      "advantages": ["lightning", "air"],
+      "weaknesses": ["water", "fire"]
+    },
+    "air": {
+      "name": "Air",
+      "color": "#E1F5FE",
+      "icon": "💨",
+      "advantages": ["water", "earth"],
+      "weaknesses": ["lightning"]
+    },
+    "lightning": {
+      "name": "Lightning",
+      "color": "#FFEB3B",
+      "icon": "⚡",
+      "advantages": ["water", "air"],
+      "weaknesses": ["earth"]
+    },
+    "ice": {
+      "name": "Ice",
+      "color": "#00BCD4",
+      "icon": "❄️",
+      "advantages": ["water", "earth"],
+      "weaknesses": ["fire"]
+    },
+    "light": {
+      "name": "Light",
+      "color": "#FFF9C4",
+      "icon": "✨",
+      "advantages": ["dark", "chaos"],
+      "weaknesses": ["dark"]
+    },
+    "dark": {
+      "name": "Dark",
+      "color": "#424242",
+      "icon": "🌑",
+      "advantages": ["light", "cosmic"],
+      "weaknesses": ["light"]
+    },
+    "chaos": {
+      "name": "Chaos",
+      "color": "#E91E63",
+      "icon": "🌀",
+      "advantages": ["cosmic", "light"],
+      "weaknesses": ["cosmic"]
+    },
+    "cosmic": {
+      "name": "Cosmic",
+      "color": "#673AB7",
+      "icon": "🌌",
+      "advantages": ["chaos", "dark"],
+      "weaknesses": ["chaos"]
+    },
+    "neutral": {
+      "name": "Neutral",
+      "color": "#9E9E9E",
+      "icon": "⚪",
+      "advantages": [],
+      "weaknesses": []
+    }
+  },
+
+  "statusEffects": {
+    "burn": {
+      "name": "Burn",
+      "type": "dot",
+      "icon": "🔥",
+      "description": "Takes fire damage over time"
+    },
+    "poison": {
+      "name": "Poison",
+      "type": "dot",
+      "icon": "☠️",
+      "description": "Takes poison damage over time"
+    },
+    "bleed": {
+      "name": "Bleed",
+      "type": "dot",
+      "icon": "🩸",
+      "description": "Takes physical damage over time"
+    },
+    "freeze": {
+      "name": "Freeze",
+      "type": "cc",
+      "icon": "❄️",
+      "description": "Cannot act or move"
+    },
+    "stun": {
+      "name": "Stun",
+      "type": "cc",
+      "icon": "💫",
+      "description": "Cannot act"
+    },
+    "slow": {
+      "name": "Slow",
+      "type": "cc",
+      "icon": "🐌",
+      "description": "Reduced speed"
+    },
+    "root": {
+      "name": "Root",
+      "type": "cc",
+      "icon": "🌿",
+      "description": "Cannot move but can act"
+    },
+    "silence": {
+      "name": "Silence",
+      "type": "cc",
+      "icon": "🤐",
+      "description": "Cannot cast spells"
+    },
+    "shield": {
+      "name": "Shield",
+      "type": "buff",
+      "icon": "🛡️",
+      "description": "Absorbs damage"
+    },
+    "regen": {
+      "name": "Regeneration",
+      "type": "buff",
+      "icon": "💚",
+      "description": "Restores health over time"
+    },
+    "haste": {
+      "name": "Haste",
+      "type": "buff",
+      "icon": "⚡",
+      "description": "Increased speed"
+    },
+    "vulnerability": {
+      "name": "Vulnerability",
+      "type": "debuff",
+      "icon": "💔",
+      "description": "Takes increased damage"
+    }
+  },
+
+  "damageTypes": {
+    "physical": {
+      "name": "Physical",
+      "description": "Standard physical damage, affected by armor"
+    },
+    "magical": {
+      "name": "Magical",
+      "description": "Magic damage, affected by magic resistance"
+    },
+    "true": {
+      "name": "True",
+      "description": "Ignores defense but not resistances"
+    },
+    "pure": {
+      "name": "Pure",
+      "description": "Ignores all defenses and resistances"
+    }
+  },
+
+  "spellTypes": {
+    "damage": "Offensive spell that deals damage",
+    "heal": "Restorative spell that heals",
+    "buff": "Enhances abilities or stats",
+    "debuff": "Weakens enemy abilities or stats",
+    "control": "Crowd control effects",
+    "summon": "Summons creatures or objects",
+    "utility": "Provides various utility effects",
+    "ultimate": "Powerful ultimate ability"
+  },
+
+  "spellSchools": {
+    "evocation": "Direct damage and energy manipulation",
+    "conjuration": "Summoning and creation",
+    "necromancy": "Death, undead, and life drain",
+    "abjuration": "Protection and defensive magic",
+    "transmutation": "Transformation and alteration",
+    "divination": "Information and foresight",
+    "enchantment": "Mind-affecting magic",
+    "illusion": "Deception and illusions"
+  },
+
+  "economy": {
+    "currencies": {
+      "gold": {
+        "name": "Gold",
+        "icon": "💰",
+        "description": "Basic currency earned from battles"
+      },
+      "souls": {
+        "name": "Souls",
+        "icon": "👻",
+        "description": "Premium currency for revival"
+      },
+      "gems": {
+        "name": "Gems",
+        "icon": "💎",
+        "description": "Premium currency for items"
+      },
+      "shards": {
+        "name": "Shards",
+        "icon": "🔷",
+        "description": "Currency for spell crafting"
+      }
+    },
+    "conversion": {
+      "goldToSouls": 100,
+      "soulPackages": [
+        { "souls": 1, "gold": 100, "discount": 0 },
+        { "souls": 10, "gold": 900, "discount": 0.10 },
+        { "souls": 50, "gold": 4000, "discount": 0.20 },
+        { "souls": 100, "gold": 7000, "discount": 0.30 }
+      ]
+    },
+    "items": {
+      "spellUnlocker": {
+        "name": "Spell Unlocker",
+        "cost": 100,
+        "currency": "gems",
+        "description": "Unlocks one locked spell slot"
+      }
+    }
+  },
+
+  "progression": {
+    "hero": {
+      "maxLevel": 100,
+      "revivalCosts": [10, 25, 50],
+      "buildSlots": 6,
+      "secondaryBuildUnlockLevel": 15
+    },
+    "spells": {
+      "maxLevel": 10,
+      "upgradeCostBase": 50,
+      "upgradeCostMultiplier": 1.5
+    }
+  },
+
+  "battle": {
+    "startingHP": 100,
+    "startingMana": 100,
+    "manaRegenPerTurn": 20,
+    "elementalAdvantageMultiplier": 1.5,
+    "elementalWeaknessMultiplier": 0.5
+  },
+
+  "rewards": {
+    "battleWin": {
+      "gold": 50,
+      "souls": 1,
+      "xp": 100
+    },
+    "perfectVictory": {
+      "goldBonus": 25,
+      "gemsBonus": 5
+    }
+  }
+}

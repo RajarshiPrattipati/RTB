@@ -8,6 +8,30 @@ import { UnlockConfirmation } from './UnlockConfirmation';
 import './SpellSlot.css';
 
 /**
+ * Get spell icon emoji based on element or type
+ */
+const getSpellIcon = (spell) => {
+  if (!spell) return '✨';
+
+  // Map by element
+  const elementIcons = {
+    fire: '🔥',
+    water: '🌊',
+    ice: '❄️',
+    lightning: '⚡',
+    earth: '🌍',
+    air: '💨',
+    light: '✨',
+    dark: '🌑',
+    chaos: '🌀',
+    cosmic: '🌟',
+    neutral: '⭐'
+  };
+
+  return elementIcons[spell.element] || '✨';
+};
+
+/**
  * SpellSlot Component
  * Displays a single spell slot with lock icon and unlock capability
  */
@@ -55,11 +79,9 @@ export const SpellSlot = ({
           title={disabled ? 'Cannot unlock during battle' : `Click to unlock (100 💎)`}
         >
           <div className="spell-content">
-            <img
-              src={slot.spell.iconUrl || '/assets/default-spell.png'}
-              alt={slot.spell.name}
-              className="spell-icon"
-            />
+            <div className="spell-icon-placeholder">
+              {getSpellIcon(slot.spell)}
+            </div>
 
             <div className="spell-details">
               <div className="spell-name">{slot.spell.name}</div>
@@ -114,11 +136,9 @@ export const SpellSlot = ({
         title="Click to change spell"
       >
         <div className="spell-content">
-          <img
-            src={slot.spell.iconUrl || '/assets/default-spell.png'}
-            alt={slot.spell.name}
-            className="spell-icon"
-          />
+          <div className="spell-icon-placeholder">
+            {getSpellIcon(slot.spell)}
+          </div>
 
           <div className="spell-details">
             <div className="spell-name">{slot.spell.name}</div>

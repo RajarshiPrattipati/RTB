@@ -3,10 +3,8 @@
  * Central coordinator for all game systems and event bus integration
  */
 
-import battleRewards from '../battle/BattleRewards';
 import missionManager from '../progression/MissionManager';
 import dailyRewards from '../progression/DailyRewards';
-import economyManager from '../economy/EconomyManager';
 
 /**
  * GameManager Class
@@ -16,14 +14,17 @@ export class GameManager {
   constructor() {
     this.eventListeners = new Map();
     this.gameState = null;
+    this.dispatch = null;
   }
 
   /**
-   * Initialize GameManager with State
+   * Initialize GameManager with State and Dispatch
    * @param {Object} initialState - Initial game state
+   * @param {Function} dispatch - Redux-style dispatch function
    */
-  initialize(initialState) {
+  initialize(initialState, dispatch) {
     this.gameState = initialState;
+    this.dispatch = dispatch;
     this.setupEventListeners();
   }
 
@@ -99,38 +100,57 @@ export class GameManager {
    * @param {Object} data - Victory data
    */
   handleBattleVictory(data) {
-    if (!this.gameState) return;
+    if (!this.gameState || !this.dispatch) return;
 
     const { player } = this.gameState;
 
-    // Award rewards
-    const rewardResult = battleRewards.awardBattleVictory(player, data);
-
-    if (rewardResult.success) {
-      this.emit('rewards:awarded', {
-        type: 'battle_victory',
-        rewards: rewardResult.rewards
+    // Award Souls for kill
+    if (data.playerVictory) {
+      this.dispatch({
+        type: 'SOUL_GAIN',
+        payload: { amount: 1 }
       });
-
-      // Track Soul collection for missions
-      if (rewardResult.rewards.souls > 0 && player.missions) {
-        missionManager.trackSoulCollection(
-          [...player.missions.daily, ...player.missions.weekly],
-          rewardResult.rewards.souls
-        );
-      }
     }
 
-    // Check for first win bonus
-    if (player.firstWinAvailable) {
-      const bonusResult = battleRewards.awardFirstWinBonus(player);
-      if (bonusResult.success) {
-        player.firstWinAvailable = false;
-        this.emit('rewards:awarded', {
-          type: 'first_win_bonus',
-          rewards: bonusResult.bonus
-        });
+    // Award Gold
+    const goldReward = Math.floor(50 * (data.difficulty === 'hard' ? 1.5 : 1.0));
+    this.dispatch({
+      type: 'CURRENCY_ADD',
+      payload: { currency: 'gold', amount: goldReward }
+    });
+
+    // Award XP
+    const xpReward = Math.floor(100 * (data.difficulty === 'hard' ? 1.5 : 1.0));
+    this.dispatch({
+      type: 'PLAYER_GAIN_XP',
+      payload: { amount: xpReward }
+    });
+
+    // Award Gems for perfect victory
+    if (data.perfectVictory) {
+      this.dispatch({
+        type: 'CURRENCY_ADD',
+        payload: { currency: 'gems', amount: 1 }
+      });
+    }
+
+    // Emit rewards event for UI notification
+    this.emit('rewards:awarded', {
+      type: 'battle_victory',
+      rewards: {
+        souls: 1,
+        gold: goldReward,
+        xp: xpReward,
+        gems: data.perfectVictory ? 1 : 0
       }
+    });
+
+    // Track Soul collection for missions
+    if (player.missions) {
+      missionManager.trackSoulCollection(
+        [...player.missions.daily, ...player.missions.weekly],
+        1
+      );
     }
   }
 
@@ -139,17 +159,19 @@ export class GameManager {
    * @param {Object} data - Defeat data
    */
   handleBattleDefeat(data) {
-    if (!this.gameState) return;
+    if (!this.gameState || !this.dispatch) return;
 
-    const { player, hero } = this.gameState;
+    const hero = this.gameState.player?.hero;
 
     // Check if hero dies
-    const defeatResult = battleRewards.handleBattleDefeat(player, hero, data);
+    if (hero && data.playerHp <= 0) {
+      // Dispatch hero death action
+      this.dispatch({ type: 'HERO_DEATH' });
 
-    if (defeatResult.heroDied) {
+      // Emit hero death event for UI
       this.emit('hero:death', {
-        hero: defeatResult.hero,
-        revivalCost: defeatResult.revivalCost
+        hero: this.gameState.player.hero,
+        revivalCost: this.gameState.player.hero.revivalCost
       });
     }
   }

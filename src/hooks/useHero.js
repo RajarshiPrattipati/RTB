@@ -3,7 +3,7 @@
  * Provides hero operations and state management
  */
 
-import { useGlobalState } from '../context/GlobalState';
+import { useGlobalState } from '../context/GlobalStateProvider';
 import { useMemo, useCallback } from 'react';
 import { Hero, HERO_STATUS, BUILD_TYPE } from '../models/Hero';
 
@@ -390,6 +390,7 @@ export const useHero = () => {
     souls,
     gems,
     spellUnlockers,
+    inventory: state.player.inventory,
     canRevive,
     canAffordSpellUnlocker,
 

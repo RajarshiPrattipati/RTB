@@ -27,7 +27,7 @@ export const HeroStatusBanner = ({ onReviveClick }) => {
     return (
       <div className="hero-status-banner dead">
         <div className="hero-avatar grayscale">
-          <img src={hero.avatar} alt={hero.name} />
+          <div className="avatar-placeholder dead-avatar">⚔️</div>
           <div className="death-overlay">💀</div>
         </div>
 
@@ -71,7 +71,7 @@ export const HeroStatusBanner = ({ onReviveClick }) => {
   return (
     <div className="hero-status-banner alive">
       <div className="hero-avatar">
-        <img src={hero.avatar} alt={hero.name} />
+        <div className="avatar-placeholder alive-avatar">⚔️</div>
       </div>
 
       <div className="hero-info">

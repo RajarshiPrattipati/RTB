@@ -9,6 +9,19 @@ import { SpellSlot } from './SpellSlot';
 import './BuildManager.css';
 
 /**
+ * Get spell icon emoji based on element
+ */
+const getSpellIcon = (spell) => {
+  if (!spell) return '✨';
+  const elementIcons = {
+    fire: '🔥', water: '🌊', ice: '❄️', lightning: '⚡',
+    earth: '🌍', air: '💨', light: '✨', dark: '🌑',
+    chaos: '🌀', cosmic: '🌟', neutral: '⭐'
+  };
+  return elementIcons[spell.element] || '✨';
+};
+
+/**
  * BuildManager Component
  * Allows switching between Primary/Secondary builds and managing spell slots
  */
@@ -18,7 +31,7 @@ export const BuildManager = ({
   availableSpells = [],
   disabled = false
 }) => {
-  const { hero, lockSpell, unlockSpellWithItem } = useHero();
+  const { hero, lockSpell, unlockSpell } = useHero();
   const [activeBuild, setActiveBuild] = useState(hero?.activeBuild || 'primary');
   const [selectedSlot, setSelectedSlot] = useState(null);
 
@@ -57,12 +70,12 @@ export const BuildManager = ({
   const handleUnlock = (slotIndex) => {
     if (disabled) return;
 
-    const result = unlockSpellWithItem(activeBuild, slotIndex);
+    const result = unlockSpell(activeBuild, slotIndex);
 
     if (result.success) {
       onUnlockSpell && onUnlockSpell(result);
     } else {
-      console.error('Failed to unlock spell:', result.reason);
+      console.error('Failed to unlock spell:', result.message);
     }
   };
 
@@ -154,11 +167,9 @@ export const BuildManager = ({
                   className="spell-card"
                   onClick={() => handleSpellSelect(spell)}
                 >
-                  <img
-                    src={spell.iconUrl || '/assets/default-spell.png'}
-                    alt={spell.name}
-                    className="spell-icon"
-                  />
+                  <div className="spell-icon-emoji">
+                    {getSpellIcon(spell)}
+                  </div>
                   <div className="spell-info">
                     <div className="spell-name">{spell.name}</div>
                     <div className="spell-type">{spell.type}</div>

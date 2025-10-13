@@ -4,8 +4,7 @@
  */
 
 import React, { createContext, useReducer, useContext } from 'react';
-import { Hero } from '../models/Hero';
-import SpellSlot from '../models/SpellSlot';
+import { getAllStarterSpells } from '../shared/starterSpells';
 
 /**
  * Initial State
@@ -43,7 +42,7 @@ export const initialState = {
     },
 
     // Spell collection
-    collection: [], // Array of Spell objects
+    collection: getAllStarterSpells(), // Array of Spell objects - Start with 8 basic spells
 
     // Statistics
     stats: {
@@ -489,6 +488,21 @@ export function globalReducer(state, action) {
           ...state.ui,
           notifications: [],
         },
+      };
+
+    // ===== MISSION ACTIONS =====
+    case 'MISSIONS_INIT':
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          missions: {
+            daily: action.payload.daily,
+            weekly: action.payload.weekly,
+            dailyResetTime: action.payload.dailyResetTime,
+            weeklyResetTime: action.payload.weeklyResetTime
+          }
+        }
       };
 
     // ===== BATTLE ACTIONS =====

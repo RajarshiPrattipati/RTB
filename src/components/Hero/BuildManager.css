@@ -256,6 +256,17 @@
   object-fit: cover;
 }
 
+.spell-icon-emoji {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .spell-card .spell-info {
   flex: 1;
 }

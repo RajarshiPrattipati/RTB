@@ -361,6 +361,22 @@ export class MissionManager {
   }
 
   /**
+   * Get Daily Missions
+   * @returns {Array} Daily missions
+   */
+  getDailyMissions() {
+    return this.generateDailyMissions();
+  }
+
+  /**
+   * Get Weekly Missions
+   * @returns {Array} Weekly missions
+   */
+  getWeeklyMissions() {
+    return this.generateWeeklyMissions();
+  }
+
+  /**
    * Reset Daily Missions
    * @returns {Array} Fresh daily missions
    */
