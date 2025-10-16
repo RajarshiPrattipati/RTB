@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://w5n4kf04c1fp"]
+
+[ext_resource type="Script" uid="uid://c8svh8mpm0hp5" path="res://database/skills/skills_template.gd" id="1_pveml"]
+
+[resource]
+script = ExtResource("1_pveml")
+skill_name = "Attack"
+description = "A swift and precise strike targeting the enemy's weak points."
+skill_color = "gray"
+skill_tags = "physical,basic,reliable"
+base_power = 35
+critical_rate = 8
+hit_chance = 100
+sp_cost = 0
+element = 0
+effect_type = 0
+animation_name = "attack"

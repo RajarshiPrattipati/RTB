@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpthp5v036n55"]
+
+[ext_resource type="Script" uid="uid://grs8x8ujsmun" path="res://battle-manager/scripts/battler_scripts/battler.gd" id="1_battler"]
+[ext_resource type="Resource" path="res://database/battlers/ogrork_stats.tres" id="2_stats"]
+[ext_resource type="Resource" uid="uid://w5n4kf04c1fp" path="res://database/skills/normal_attack.tres" id="3_attack"]
+[ext_resource type="Script" uid="uid://wn06g6ffxnqr" path="res://battle-manager/scripts/experience.gd" id="4_exp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1"]
+viewport_path = NodePath("DamageNumberViewport")
+
+[node name="TestEnemy" type="CharacterBody3D" groups=["enemies"]]
+script = ExtResource("1_battler")
+stats = ExtResource("2_stats")
+default_attack = ExtResource("3_attack")
+team = 1
+intelligence = 60
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_1")
+
+[node name="Experience" type="Node" parent="."]
+script = ExtResource("4_exp")
+
+[node name="BattlerUI" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="BattlerInfoViewport" type="SubViewport" parent="BattlerUI"]
+transparent_bg = true
+size = Vector2i(400, 100)
+
+[node name="BattlerInfo" type="Control" parent="BattlerUI/BattlerInfoViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BattlerNameLabel" type="Label" parent="BattlerUI/BattlerInfoViewport/BattlerInfo"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 30.0
+grow_horizontal = 2
+text = "Test Enemy"
+horizontal_alignment = 1
+
+[node name="BattlerHealthBar" type="ProgressBar" parent="BattlerUI/BattlerInfoViewport/BattlerInfo"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 150.0
+value = 150.0
+show_percentage = false
+
+[node name="InfoSprite" type="Sprite3D" parent="BattlerUI"]
+pixel_size = 0.005
+billboard = 1
+texture = SubResource("ViewportTexture_1")
+
+[node name="DamageNumberViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(200, 100)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1")
+
+[connection signal="mouse_entered" from="Area3D" to="." method="_mouse_enter"]
+[connection signal="mouse_exited" from="Area3D" to="." method="_mouse_exit"]

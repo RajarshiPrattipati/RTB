@@ -1,0 +1,337 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxwvax5ek5jd0"]
+
+[ext_resource type="Script" uid="uid://835wmi7qej15" path="res://battle-manager/battlehud/battlehud.gd" id="1_0qukq"]
+[ext_resource type="Script" uid="uid://dbbsrqrispnmb" path="res://battle-manager/battlehud/battler_info.gd" id="2_64dmw"]
+[ext_resource type="Theme" uid="uid://crdk7x2bxdhob" path="res://replace/theme_test.tres" id="2_uiugx"]
+[ext_resource type="PackedScene" uid="uid://xtvr2wp8ojvb" path="res://battle-manager/battlehud/skill-button-preset.tscn" id="4_t5sg5"]
+
+[sub_resource type="GDScript" id="GDScript_mbt63"]
+resource_name = "EnemyStats"
+script/source = "extends VBoxContainer
+
+# Declare the progress bar node
+@onready var name_label = $EnemyNameLabel
+@onready var health_bar = $EnemyHealthBar
+
+func add_character(_character: Node):
+	pass
+
+func update_enemy_stats(character: Node):
+	if character and is_instance_valid(character):
+		name_label.text = character.character_name
+		health_bar.max_value = character.max_health
+		health_bar.value = character.current_health
+
+func update_character_info(character: Node):
+	update_enemy_stats(character)
+"
+
+[sub_resource type="GDScript" id="GDScript_djde1"]
+resource_name = "EnemyStats"
+script/source = "extends VBoxContainer
+
+# Declare the progress bar node
+@onready var enemy_health_bar: ProgressBar = $EnemyHealthBar
+
+func add_character(_character: Node):
+	pass
+
+#func update_enemy_stats(character: Node):
+	## Update enemy-specific UI elements
+	#$EnemyNameLabel.text = character.character_name
+	#$EnemyHealthBar.max_value = character.max_health
+	#$EnemyHealthBar.value = character.current_health
+
+#func update_enemy_info(enemy: Node):
+	#$EnemyNameLabel.text = enemy.character_name
+	#$EnemyHealthBar.max_value = enemy.max_health
+	#$EnemyHealthBar.value = enemy.current_health
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jqjx"]
+
+[node name="BattleHUD" type="CanvasLayer" groups=["BattleHud"]]
+script = ExtResource("1_0qukq")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_uiugx")
+
+[node name="ActionButtons" type="BoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -226.0
+offset_right = 238.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("2_uiugx")
+alignment = 2
+vertical = true
+
+[node name="Attack" type="Button" parent="Control/ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Attack
+"
+
+[node name="Skills" type="Button" parent="Control/ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Skills"
+
+[node name="Items" type="Button" parent="Control/ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Items"
+
+[node name="Defend" type="Button" parent="Control/ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Defend"
+
+[node name="Run" type="Button" parent="Control/ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Run"
+
+[node name="Enemies" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -212.0
+offset_bottom = 228.0
+grow_horizontal = 0
+
+[node name="AllEnemies" type="BoxContainer" parent="Control/Enemies"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical = true
+
+[node name="EnemyStats" type="VBoxContainer" parent="Control/Enemies/AllEnemies"]
+layout_mode = 2
+script = SubResource("GDScript_mbt63")
+
+[node name="EnemyNameLabel" type="Label" parent="Control/Enemies/AllEnemies/EnemyStats"]
+layout_mode = 2
+text = "Test"
+
+[node name="EnemyHealthBar" type="ProgressBar" parent="Control/Enemies/AllEnemies/EnemyStats"]
+layout_mode = 2
+
+[node name="EnemySPBar" type="ProgressBar" parent="Control/Enemies/AllEnemies/EnemyStats"]
+layout_mode = 2
+
+[node name="EnemyStats2" type="VBoxContainer" parent="Control/Enemies/AllEnemies"]
+visible = false
+layout_mode = 2
+script = SubResource("GDScript_djde1")
+
+[node name="EnemyNameLabel" type="Label" parent="Control/Enemies/AllEnemies/EnemyStats2"]
+layout_mode = 2
+text = "Test"
+
+[node name="EnemyHealthBar" type="ProgressBar" parent="Control/Enemies/AllEnemies/EnemyStats2"]
+layout_mode = 2
+
+[node name="EnemySPBar" type="ProgressBar" parent="Control/Enemies/AllEnemies/EnemyStats2"]
+layout_mode = 2
+
+[node name="EnemyStats3" type="VBoxContainer" parent="Control/Enemies/AllEnemies"]
+visible = false
+layout_mode = 2
+script = SubResource("GDScript_mbt63")
+
+[node name="EnemyNameLabel" type="Label" parent="Control/Enemies/AllEnemies/EnemyStats3"]
+layout_mode = 2
+text = "Test"
+
+[node name="EnemyHealthBar" type="ProgressBar" parent="Control/Enemies/AllEnemies/EnemyStats3"]
+layout_mode = 2
+
+[node name="EnemySPBar" type="ProgressBar" parent="Control/Enemies/AllEnemies/EnemyStats3"]
+layout_mode = 2
+
+[node name="EnemyStats4" type="VBoxContainer" parent="Control/Enemies/AllEnemies"]
+visible = false
+layout_mode = 2
+script = SubResource("GDScript_djde1")
+
+[node name="EnemyNameLabel" type="Label" parent="Control/Enemies/AllEnemies/EnemyStats4"]
+layout_mode = 2
+text = "Test"
+
+[node name="EnemyHealthBar" type="ProgressBar" parent="Control/Enemies/AllEnemies/EnemyStats4"]
+layout_mode = 2
+
+[node name="EnemySPBar" type="ProgressBar" parent="Control/Enemies/AllEnemies/EnemyStats4"]
+layout_mode = 2
+
+[node name="Players" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 183.0
+offset_bottom = 170.0
+
+[node name="AllAllies" type="BoxContainer" parent="Control/Players"]
+layout_mode = 0
+offset_right = 183.0
+offset_bottom = 228.0
+vertical = true
+
+[node name="AllyStats" type="VBoxContainer" parent="Control/Players/AllAllies"]
+layout_mode = 2
+script = ExtResource("2_64dmw")
+
+[node name="PlayerNameLabel" type="Label" parent="Control/Players/AllAllies/AllyStats"]
+layout_mode = 2
+text = "Test"
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="Control/Players/AllAllies/AllyStats"]
+layout_mode = 2
+
+[node name="PlayerSPBar" type="ProgressBar" parent="Control/Players/AllAllies/AllyStats"]
+layout_mode = 2
+
+[node name="AllyStats2" type="VBoxContainer" parent="Control/Players/AllAllies"]
+visible = false
+layout_mode = 2
+script = ExtResource("2_64dmw")
+
+[node name="PlayerNameLabel" type="Label" parent="Control/Players/AllAllies/AllyStats2"]
+layout_mode = 2
+text = "Test"
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="Control/Players/AllAllies/AllyStats2"]
+layout_mode = 2
+
+[node name="AllyStats3" type="VBoxContainer" parent="Control/Players/AllAllies"]
+visible = false
+layout_mode = 2
+script = ExtResource("2_64dmw")
+
+[node name="PlayerNameLabel" type="Label" parent="Control/Players/AllAllies/AllyStats3"]
+layout_mode = 2
+text = "Test"
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="Control/Players/AllAllies/AllyStats3"]
+layout_mode = 2
+
+[node name="AllyStats4" type="VBoxContainer" parent="Control/Players/AllAllies"]
+visible = false
+layout_mode = 2
+script = ExtResource("2_64dmw")
+
+[node name="PlayerNameLabel" type="Label" parent="Control/Players/AllAllies/AllyStats4"]
+layout_mode = 2
+text = "Test"
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="Control/Players/AllAllies/AllyStats4"]
+layout_mode = 2
+
+[node name="BattleResults" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BattleResultLabel" type="Label" parent="Control/BattleResults"]
+layout_mode = 0
+offset_top = 225.0
+offset_right = 1152.0
+offset_bottom = 365.0
+
+[node name="Skills" type="Control" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -164.0
+offset_right = 201.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/Skills"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7jqjx")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BoxContainer" type="BoxContainer" parent="Control/Skills/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical = true
+
+[node name="SkillRow" parent="Control/Skills/ScrollContainer/BoxContainer" instance=ExtResource("4_t5sg5")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="SkillRow2" parent="Control/Skills/ScrollContainer/BoxContainer" instance=ExtResource("4_t5sg5")]
+layout_mode = 2
+
+[node name="Items" type="Control" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -164.0
+offset_right = 201.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/Items"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7jqjx")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BoxContainer" type="BoxContainer" parent="Control/Items/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical = true
+
+[node name="SkillRow" parent="Control/Items/ScrollContainer/BoxContainer" instance=ExtResource("4_t5sg5")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="SkillRow2" parent="Control/Items/ScrollContainer/BoxContainer" instance=ExtResource("4_t5sg5")]
+layout_mode = 2
+
+[connection signal="pressed" from="Control/ActionButtons/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Control/ActionButtons/Skills" to="." method="_on_skills_pressed"]
+[connection signal="pressed" from="Control/ActionButtons/Items" to="." method="_on_items_pressed"]
+[connection signal="pressed" from="Control/ActionButtons/Defend" to="." method="_on_defend_pressed"]
+[connection signal="pressed" from="Control/ActionButtons/Run" to="." method="_on_run_pressed"]

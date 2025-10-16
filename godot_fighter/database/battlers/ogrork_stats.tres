@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BattlerStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://BattlerStats.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+character_name = "Ogrork"
+max_health = 150
+max_sp = 80
+attack = 15
+defense = 8
+agility = 3
+sp_regen = 5
+element = 0

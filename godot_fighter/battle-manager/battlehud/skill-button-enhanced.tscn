@@ -1,0 +1,134 @@
+[gd_scene load_steps=9 format=3 uid="uid://5p8typy17voj"]
+
+[ext_resource type="Texture2D" uid="uid://desmmvfvehe3b" path="res://assets/images/icons/Asset 11.png" id="1_1gef3"]
+[ext_resource type="Script" uid="uid://bp8uc3di8qowc" path="res://battle-manager/battlehud/skill_button.gd" id="1_rlbxm"]
+[ext_resource type="Resource" uid="uid://ddoo4r86oyqyr" path="res://database/skills/fireball.tres" id="2_f222w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
+bg_color = Color(0.15, 0.15, 0.2, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.5, 0.7, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
+bg_color = Color(0.25, 0.3, 0.4, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.5, 0.7, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_size = 6
+shadow_color = Color(0.2, 0.4, 0.8, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pressed"]
+bg_color = Color(0.3, 0.4, 0.6, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.8, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_size = 1
+shadow_color = Color(0, 0, 0, 0.6)
+
+[sub_resource type="Animation" id="Animation_pulse"]
+resource_name = "pulse"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/HBox#Icon:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1.3, 1.3, 1.5, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_skill"]
+_data = {
+"pulse": SubResource("Animation_pulse")
+}
+
+[node name="SkillRow" type="Button"]
+custom_minimum_size = Vector2(400, 50)
+anchors_preset = -1
+anchor_right = 0.224826
+anchor_bottom = 0.0617284
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+script = ExtResource("1_rlbxm")
+metadata/_script_path = "res://battle-manager/battlehud/skill_button_enhanced.gd"
+current_skill = ExtResource("2_f222w")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="HBox#Icon" type="TextureRect" parent="HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("1_1gef3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="HBox#SkillName" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "⚡ Skill Name"
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.7, 0.8, 1)
+theme_override_font_sizes/font_size = 12
+text = "Deals damage to target"
+
+[node name="HBox#SkillCost" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "💧 15 SP"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_skill")
+}

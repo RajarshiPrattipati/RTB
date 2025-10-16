@@ -1,0 +1,4 @@
+res://battle-manager/scripts/battler_scripts/battler.gd
+res://battle-manager/enemies/test_enemy.tscn
+res://battle-manager/scripts/setup_ogrork_attack.gd
+res://battle-manager/battlemanager.gd

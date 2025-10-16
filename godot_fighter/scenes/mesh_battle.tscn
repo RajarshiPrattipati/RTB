@@ -1,0 +1,106 @@
+[gd_scene load_steps=18 format=3 uid="uid://b0pg6uohhn8mq"]
+
+[ext_resource type="PackedScene" uid="uid://bcqxqucgohr4x" path="res://battle-manager/allies/y_bot-ally.tscn" id="1_2aqym"]
+[ext_resource type="PackedScene" uid="uid://bvhah4cfn4txb" path="res://battle-manager/BattleManager.tscn" id="1_t14x8"]
+[ext_resource type="PackedScene" uid="uid://bpthp5v036n55" path="res://battle-manager/enemies/test_enemy.tscn" id="2_ogrork_enemy"]
+[ext_resource type="Resource" uid="uid://w5n4kf04c1fp" path="res://database/skills/normal_attack.tres" id="4_q6nlu"]
+[ext_resource type="Script" uid="uid://00iehstgqwik" path="res://BattlerStats.gd" id="4_xecl5"]
+[ext_resource type="Script" uid="uid://m02b4cy78or" path="res://database/items/items_template.gd" id="5_xecl5"]
+[ext_resource type="Script" uid="uid://c2j4t3rigq4gk" path="res://battle-manager/inventory/inventory.gd" id="6_yxp8s"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2ddfu"]
+sky_top_color = Color(0.447336, 0.519571, 0.620102, 1)
+sky_cover_modulate = Color(0.801182, 0.452923, 0.347646, 1)
+
+[sub_resource type="Sky" id="Sky_4vui1"]
+sky_material = SubResource("ProceduralSkyMaterial_2ddfu")
+
+[sub_resource type="Environment" id="Environment_misr6"]
+background_mode = 2
+sky = SubResource("Sky_4vui1")
+fog_enabled = true
+fog_light_energy = 1.34
+volumetric_fog_density = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fc4g"]
+albedo_color = Color(0.192279, 0.227401, 0.23218, 1)
+
+[sub_resource type="Resource" id="Resource_yxp8s"]
+script = ExtResource("4_xecl5")
+metadata/_custom_type_script = "uid://d2mintfjxyqei"
+
+[sub_resource type="Resource" id="Resource_daget"]
+script = ExtResource("5_xecl5")
+item_name = "Other item"
+description = "Does other stuff"
+item_tags = "Hrmm"
+metadata/_custom_type_script = "uid://m02b4cy78or"
+
+[sub_resource type="Resource" id="Resource_fa7uu"]
+script = ExtResource("5_xecl5")
+item_name = "Crazy Item"
+description = "Does crazy stuff"
+item_tags = "AHHH"
+metadata/_custom_type_script = "uid://m02b4cy78or"
+
+[sub_resource type="Resource" id="Resource_4yi8j"]
+script = ExtResource("6_yxp8s")
+collection = Dictionary[ExtResource("5_xecl5"), int]({
+SubResource("Resource_daget"): 5,
+SubResource("Resource_fa7uu"): 3
+})
+metadata/_custom_type_script = "uid://c2j4t3rigq4gk"
+
+[sub_resource type="Resource" id="Resource_o35h0"]
+script = ExtResource("4_xecl5")
+character_name = "Ogrork"
+max_health = 150
+max_sp = 80
+attack = 15
+defense = 8
+agility = 3
+sp_regen = 5
+element = 0
+metadata/_custom_type_script = "uid://d2mintfjxyqei"
+
+[node name="Battle-Manager" instance=ExtResource("1_t14x8")]
+default_attack = ExtResource("4_q6nlu")
+
+[node name="Control" parent="BattleHUD" index="0"]
+mouse_filter = 1
+
+[node name="PlayerSPBar" type="ProgressBar" parent="BattleHUD/Control/Players/AllAllies/AllyStats2" index="2"]
+layout_mode = 2
+
+[node name="PlayerSPBar" type="ProgressBar" parent="BattleHUD/Control/Players/AllAllies/AllyStats3" index="2"]
+layout_mode = 2
+
+[node name="PlayerSPBar" type="ProgressBar" parent="BattleHUD/Control/Players/AllAllies/AllyStats4" index="2"]
+layout_mode = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = SubResource("Environment_misr6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.0715845, 0.997435, 0, -0.997435, 0.0715845, 0, 17.7598, 0)
+light_energy = 1.646
+shadow_enabled = true
+
+[node name="Platform" type="CSGBox3D" parent="." index="2"]
+use_collision = true
+size = Vector3(100, 0.5, 100)
+material = SubResource("StandardMaterial3D_3fc4g")
+
+[node name="Ally1" parent="." index="3" groups=["battler_data", "players"] instance=ExtResource("1_2aqym")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.260986, -1.5)
+stats = SubResource("Resource_yxp8s")
+inventory = SubResource("Resource_4yi8j")
+
+[node name="Enemy1" parent="." index="4" groups=["enemies"] instance=ExtResource("2_ogrork_enemy")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 1.5)
+stats = SubResource("Resource_o35h0")
+
+[node name="Camera3D" type="Camera3D" parent="." index="5"]
+transform = Transform3D(-0.7961607, 0.22854224, -0.56026477, -0.0014811489, 0.9251882, 0.37950593, 0.6050834, 0.30297753, -0.73626, -1.748209, 2.482466, -2.2242131)
+
+[editable path="BattleHUD"]

@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://e2xh0cy8ehu0"]
+
+[ext_resource type="Script" uid="uid://c6x7i46skvc6" path="res://scripts/main_battle.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/battle_manager.gd" id="2_battle"]
+[ext_resource type="Script" path="res://scripts/fighter.gd" id="3_fighter"]
+[ext_resource type="Script" path="res://scripts/battle_ui.gd" id="4_ui"]
+[ext_resource type="Script" path="res://scripts/stick_figure.gd" id="5_stick"]
+[ext_resource type="Script" path="res://scripts/vfx_manager.gd" id="6_vfx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.4
+height = 2.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_enemy"]
+radius = 0.4
+height = 2.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
+size = Vector2(20, 20)
+
+[node name="MainBattle" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="BattleManager" type="Node3D" parent="."]
+script = ExtResource("2_battle")
+
+[node name="PlayerFighter" type="CharacterBody3D" parent="BattleManager"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 0, 0)
+script = ExtResource("3_fighter")
+fighter_name = "Player"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BattleManager/PlayerFighter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="StickFigure" type="Node3D" parent="BattleManager/PlayerFighter"]
+script = ExtResource("5_stick")
+
+[node name="EnemyFighter" type="CharacterBody3D" parent="BattleManager"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 1, 0)
+script = ExtResource("3_fighter")
+fighter_name = "Enemy"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BattleManager/EnemyFighter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_enemy")
+
+[node name="StickFigure" type="Node3D" parent="BattleManager/EnemyFighter"]
+script = ExtResource("5_stick")
+
+[node name="BattleUI" type="CanvasLayer" parent="."]
+script = ExtResource("4_ui")
+
+[node name="VFXManager" type="Node3D" parent="."]
+script = ExtResource("6_vfx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.92388, 0.382683, 0, -0.382683, 0.92388, 0, 4, 10)
+current = true
+fov = 75.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
+light_energy = 1.0
+shadow_enabled = true
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_floor")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

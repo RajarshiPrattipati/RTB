@@ -1,0 +1,141 @@
+[gd_scene load_steps=13 format=3 uid="uid://ogrork_enemy_scene"]
+
+[ext_resource type="PackedScene" uid="uid://c7vh7qm3xg7xk" path="res://battle-manager/enemies/Ogrork_Goblimp_rigged.glb" id="1_ogrork"]
+[ext_resource type="Script" path="res://battle-manager/scripts/battler_scripts/battler.gd" id="2_battler"]
+[ext_resource type="Resource" path="res://database/battlers/ogrork_stats.tres" id="3_stats"]
+[ext_resource type="Resource" path="res://database/skills/normal_attack.tres" id="4_attack"]
+[ext_resource type="Script" path="res://battle-manager/scripts/experience.gd" id="5_exp"]
+[ext_resource type="Script" path="res://battle-manager/scripts/setup_ogrork_attack.gd" id="6_setup"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ogrork"]
+radius = 0.8
+height = 2.2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_idle"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_battle_idle"]
+animation = &"battle_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_attack"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_start_idle"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_idle_battle"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_battle_idle"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_attack"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_attack_return"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_idle_attack"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1"]
+states/Start/position = Vector2(200, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_idle")
+states/idle/position = Vector2(400, 100)
+states/battle_idle/node = SubResource("AnimationNodeAnimation_battle_idle")
+states/battle_idle/position = Vector2(400, 200)
+states/attack/node = SubResource("AnimationNodeAnimation_attack")
+states/attack/position = Vector2(600, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_start_idle"), "idle", "battle_idle", SubResource("AnimationNodeStateMachineTransition_idle_battle"), "battle_idle", "idle", SubResource("AnimationNodeStateMachineTransition_battle_idle"), "battle_idle", "attack", SubResource("AnimationNodeStateMachineTransition_attack"), "attack", "battle_idle", SubResource("AnimationNodeStateMachineTransition_attack_return"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_idle_attack")]
+graph_offset = Vector2(0, 0)
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_1"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_damage"]
+viewport_path = NodePath("DamageNumberViewport")
+
+[node name="OgrorkEnemy" type="CharacterBody3D" groups=["enemies"]]
+script = ExtResource("2_battler")
+stats = ExtResource("3_stats")
+default_attack = ExtResource("4_attack")
+team = 1
+intelligence = 60
+damage_indicator_subviewport = NodePath("DamageNumberViewport")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ogrork")
+
+[node name="OgrorkModel" parent="." instance=ExtResource("1_ogrork")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="Experience" type="Node" parent="."]
+script = ExtResource("5_exp")
+
+[node name="ATBComponent" type="Node" parent="."]
+script = preload("res://battle-manager/scripts/atb_component.gd")
+action_time = 2.0
+charge_mp_amount = 15
+
+[node name="SetupAttack" type="Node" parent="."]
+script = ExtResource("6_setup")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_1")
+anim_player = NodePath("OgrorkModel/AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_1")
+
+[node name="BattlerUI" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="BattlerInfoViewport" type="SubViewport" parent="BattlerUI"]
+transparent_bg = true
+size = Vector2i(400, 100)
+
+[node name="BattlerInfo" type="Control" parent="BattlerUI/BattlerInfoViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BattlerNameLabel" type="Label" parent="BattlerUI/BattlerInfoViewport/BattlerInfo"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 30.0
+grow_horizontal = 2
+text = "Ogrork"
+horizontal_alignment = 1
+
+[node name="BattlerHealthBar" type="ProgressBar" parent="BattlerUI/BattlerInfoViewport/BattlerInfo"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 150.0
+value = 150.0
+show_percentage = false
+
+[node name="InfoSprite" type="Sprite3D" parent="BattlerUI"]
+billboard = 1
+texture = SubResource("ViewportTexture_damage")
+pixel_size = 0.005
+
+[node name="DamageNumberViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(200, 100)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ogrork")
+
+[connection signal="mouse_entered" from="Area3D" to="." method="_mouse_enter"]
+[connection signal="mouse_exited" from="Area3D" to="." method="_mouse_exit"]

@@ -1,6 +1,7 @@
 import styles from './styles.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { Battle, EndMenu, StartMenu } from 'components';
+import { GodotGame } from '../GodotGame';
 import { HeroStatusBanner } from '../Hero/HeroStatusBanner';
 import { RevivalModal } from '../Hero/RevivalModal';
 import { BuildManager } from '../Hero/BuildManager';
@@ -37,7 +38,7 @@ export const App = () => {
     if (heroDead) {
       setShowRevivalModal(true);
     } else {
-      setMode('battle');
+      setMode('godot'); // Launch Godot fighter game
     }
   };
 
@@ -51,8 +52,8 @@ export const App = () => {
 
   return (
     <div className={styles.main}>
-      {/* Main Navigation - Always visible except in battle and gameOver */}
-      {mode !== 'battle' && mode !== 'gameOver' && (
+      {/* Main Navigation - Always visible except in battle, godot, and gameOver */}
+      {mode !== 'battle' && mode !== 'godot' && mode !== 'gameOver' && (
         <Navigation
           currentMode={mode}
           onNavigate={handleNavigate}
@@ -60,8 +61,8 @@ export const App = () => {
         />
       )}
 
-      {/* Hero Status HUD - Always visible except in battle */}
-      {mode !== 'battle' && hero && (
+      {/* Hero Status HUD - Always visible except in battle and godot */}
+      {mode !== 'battle' && mode !== 'godot' && hero && (
         <div style={{ position: 'fixed', top: '5rem', right: '1rem', zIndex: 1000 }}>
           <SoulCounter showLabel={true} />
         </div>
@@ -78,6 +79,14 @@ export const App = () => {
           )}
           <StartMenu onStartClick={handleStartBattle} />
         </div>
+      )}
+
+      {mode === 'godot' && (
+        <GodotGame
+          onGameEnd={() => {
+            setMode('start');
+          }}
+        />
       )}
 
       {mode === 'battle' && (

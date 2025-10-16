@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/enhanced_main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/battle_manager.gd" id="2_battle"]
+[ext_resource type="Script" path="res://scripts/fighter.gd" id="3_fighter"]
+[ext_resource type="Script" path="res://scripts/stick_figure.gd" id="4_stick"]
+[ext_resource type="Script" path="res://scripts/arena.gd" id="5_arena"]
+[ext_resource type="Script" path="res://scripts/fighting_camera.gd" id="6_camera"]
+[ext_resource type="Script" path="res://scripts/vfx_manager.gd" id="7_vfx"]
+[ext_resource type="Script" path="res://scripts/performance_monitor.gd" id="8_perf"]
+[ext_resource type="Script" path="res://scripts/battle_ui.gd" id="9_ui"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.4
+height = 2.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_enemy"]
+radius = 0.4
+height = 2.0
+
+[node name="EnhancedBattle" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="Arena" type="Node3D" parent="."]
+script = ExtResource("5_arena")
+arena_size = 20.0
+
+[node name="FightingCamera" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 10)
+script = ExtResource("6_camera")
+camera_distance = 10.0
+camera_height = 4.0
+follow_speed = 5.0
+
+[node name="BattleManager" type="Node3D" parent="."]
+script = ExtResource("2_battle")
+turn_interval = 2.0
+
+[node name="PlayerFighter" type="CharacterBody3D" parent="BattleManager"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 0, 0)
+script = ExtResource("3_fighter")
+fighter_name = "Player"
+max_health = 100
+attack_power = 10
+defense = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BattleManager/PlayerFighter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="StickFigure" type="Node3D" parent="BattleManager/PlayerFighter"]
+script = ExtResource("4_stick")
+
+[node name="EnemyFighter" type="CharacterBody3D" parent="BattleManager"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 1, 0)
+script = ExtResource("3_fighter")
+fighter_name = "Enemy"
+max_health = 100
+attack_power = 10
+defense = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BattleManager/EnemyFighter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_enemy")
+
+[node name="StickFigure" type="Node3D" parent="BattleManager/EnemyFighter"]
+script = ExtResource("4_stick")
+
+[node name="VFXManager" type="Node3D" parent="."]
+script = ExtResource("7_vfx")
+
+[node name="PerformanceMonitor" type="CanvasLayer" parent="."]
+script = ExtResource("8_perf")
+
+[node name="BattleUI" type="CanvasLayer" parent="."]
+script = ExtResource("9_ui")

@@ -171,6 +171,12 @@
       "icon": "🤐",
       "description": "Cannot cast spells"
     },
+    "confuse": {
+      "name": "Confuse",
+      "type": "cc",
+      "icon": "😵",
+      "description": "Chance to force enemy to use random spell"
+    },
     "shield": {
       "name": "Shield",
       "type": "buff",
@@ -194,6 +200,398 @@
       "type": "debuff",
       "icon": "💔",
       "description": "Takes increased damage"
+    },
+    "fear": {
+      "name": "Fear",
+      "type": "debuff",
+      "icon": "😱",
+      "description": "Reduces mana regeneration"
+    },
+    "corruption": {
+      "name": "Corruption",
+      "type": "dot",
+      "icon": "🌑",
+      "description": "Takes dark damage over time and reduces healing received"
+    },
+    "shock": {
+      "name": "Shock",
+      "type": "dot",
+      "icon": "⚡",
+      "description": "Takes lightning damage over time, may chain to other targets"
+    },
+    "curse": {
+      "name": "Curse",
+      "type": "debuff",
+      "icon": "🔮",
+      "description": "Reduces all resistances and may cause spell backfire"
+    },
+    "berserk": {
+      "name": "Berserk",
+      "type": "buff",
+      "icon": "😤",
+      "description": "Increased damage output but reduced defense"
+    },
+    "invisible": {
+      "name": "Invisible",
+      "type": "buff",
+      "icon": "👻",
+      "description": "Cannot be targeted by single-target spells"
+    },
+    "marked": {
+      "name": "Marked",
+      "type": "debuff",
+      "icon": "🎯",
+      "description": "Takes increased damage from all sources and cannot evade"
+    },
+    "fortified": {
+      "name": "Fortified",
+      "type": "buff",
+      "icon": "🏰",
+      "description": "Increased physical and magical defense"
+    },
+    "brittle": {
+      "name": "Brittle",
+      "type": "debuff",
+      "icon": "💥",
+      "description": "Next hit deals critical damage and removes this effect"
+    },
+    "thorns": {
+      "name": "Thorns",
+      "type": "buff",
+      "icon": "🌹",
+      "description": "Reflects a portion of damage back to attacker"
+    },
+    "decay": {
+      "name": "Decay",
+      "type": "debuff",
+      "icon": "🦠",
+      "description": "Reduces maximum health over time"
+    }
+  },
+
+  "playerModifiers": {
+    "evasive": {
+      "name": "Evasive",
+      "type": "passive",
+      "icon": "💨",
+      "description": "Increases chance to dodge attacks passively",
+      "statModifier": "dodgeChance",
+      "value": 0.15
+    },
+    "sharpsight": {
+      "name": "Sharpsight",
+      "type": "passive",
+      "icon": "🎯",
+      "description": "Increases accuracy",
+      "statModifier": "accuracy",
+      "value": 0.20
+    },
+    "focus": {
+      "name": "Focus",
+      "type": "conditional",
+      "icon": "🧘",
+      "description": "Damage increases if no damage taken last turn",
+      "statModifier": "damage",
+      "value": 0.25,
+      "condition": "noDamageTaken"
+    },
+    "clarity": {
+      "name": "Clarity",
+      "type": "passive",
+      "icon": "✨",
+      "description": "Increases mana regeneration",
+      "statModifier": "manaRegen",
+      "value": 0.30
+    },
+    "spellweaver": {
+      "name": "Spellweaver",
+      "type": "passive",
+      "icon": "🔮",
+      "description": "Reduces mana costs of all spells",
+      "statModifier": "manaCost",
+      "value": -0.15
+    },
+    "quickcast": {
+      "name": "Quickcast",
+      "type": "passive",
+      "icon": "⚡",
+      "description": "Reduces cooldowns on all spells",
+      "statModifier": "cooldown",
+      "value": -0.20
+    },
+    "overload": {
+      "name": "Overload",
+      "type": "conditional",
+      "icon": "💥",
+      "description": "Spell damage increased when above 80% mana",
+      "statModifier": "spellDamage",
+      "value": 0.30,
+      "condition": "highMana"
+    },
+    "desperation": {
+      "name": "Desperation",
+      "type": "conditional",
+      "icon": "❤️‍🩹",
+      "description": "All damage increased when below 30% health",
+      "statModifier": "damage",
+      "value": 0.40,
+      "condition": "lowHealth"
+    },
+    "momentum": {
+      "name": "Momentum",
+      "type": "stacking",
+      "icon": "🌊",
+      "description": "Damage increases with consecutive attacks",
+      "statModifier": "damage",
+      "maxStacks": 5,
+      "valuePerStack": 0.05
+    },
+    "resilient": {
+      "name": "Resilient",
+      "type": "passive",
+      "icon": "🛡️",
+      "description": "Reduces damage from all sources",
+      "statModifier": "damageReduction",
+      "value": 0.15
+    },
+    "adaptive": {
+      "name": "Adaptive",
+      "type": "reactive",
+      "icon": "🦎",
+      "description": "Gains resistance to damage type last received",
+      "statModifier": "resistance",
+      "value": 0.25,
+      "condition": "lastDamageType"
+    },
+    "precise": {
+      "name": "Precise",
+      "type": "passive",
+      "icon": "🎪",
+      "description": "Increased critical hit chance",
+      "statModifier": "critChance",
+      "value": 0.15
+    },
+    "deadly": {
+      "name": "Deadly",
+      "type": "passive",
+      "icon": "💀",
+      "description": "Increased critical damage multiplier",
+      "statModifier": "critDamage",
+      "value": 0.50
+    },
+    "elementalist": {
+      "name": "Elementalist",
+      "type": "passive",
+      "icon": "🔥💧",
+      "description": "Increases elemental advantage bonus",
+      "statModifier": "elementalBonus",
+      "value": 0.25
+    },
+    "spellecho": {
+      "name": "Spell Echo",
+      "type": "chance",
+      "icon": "🔁",
+      "description": "Chance to cast spells twice",
+      "chance": 0.15,
+      "condition": "onSpellCast"
+    },
+    "laststand": {
+      "name": "Last Stand",
+      "type": "conditional",
+      "icon": "⚔️",
+      "description": "Immune to death once per battle when fatal damage is taken",
+      "statModifier": "survivalChance",
+      "value": 1.0,
+      "condition": "fatalDamage",
+      "cooldown": "perBattle"
+    }
+  },
+
+  "attackModifiers": {
+    "counter": {
+      "name": "Counter",
+      "type": "reactive",
+      "icon": "🔄",
+      "description": "Chance to prevent enemy ability and deal damage back",
+      "chance": 0.25,
+      "damageMultiplier": 0.5
+    },
+    "interrupt": {
+      "name": "Interrupt",
+      "type": "active",
+      "icon": "🚫",
+      "description": "Guaranteed prevent enemy ability",
+      "chance": 1.0,
+      "manaCost": 15
+    },
+    "absorb": {
+      "name": "Absorb",
+      "type": "reactive",
+      "icon": "🌀",
+      "description": "Gain mana from being damaged by spells",
+      "conversionRate": 0.30,
+      "condition": "magicalDamage"
+    },
+    "lifesteal": {
+      "name": "Lifesteal",
+      "type": "passive",
+      "icon": "🩸",
+      "description": "Gain health from doing damage",
+      "conversionRate": 0.20
+    },
+    "penetration": {
+      "name": "Penetration",
+      "type": "passive",
+      "icon": "🗡️",
+      "description": "Ignore a percentage of enemy defense",
+      "value": 0.30
+    },
+    "shatter": {
+      "name": "Shatter",
+      "type": "active",
+      "icon": "💎",
+      "description": "Removes all shields and deals bonus damage based on shields removed",
+      "damageMultiplier": 1.5
+    },
+    "pierce": {
+      "name": "Pierce",
+      "type": "passive",
+      "icon": "🏹",
+      "description": "Attacks ignore dodge and evasion",
+      "condition": "ignoreEvasion"
+    },
+    "cleave": {
+      "name": "Cleave",
+      "type": "passive",
+      "icon": "⚔️",
+      "description": "Attacks hit multiple targets for reduced damage",
+      "targetCount": 3,
+      "damageMultiplier": 0.60
+    },
+    "execute": {
+      "name": "Execute",
+      "type": "conditional",
+      "icon": "💀",
+      "description": "Deals massive bonus damage to low health targets",
+      "damageMultiplier": 2.0,
+      "condition": "targetBelowThreshold",
+      "threshold": 0.25
+    },
+    "siphon": {
+      "name": "Siphon",
+      "type": "passive",
+      "icon": "🧛",
+      "description": "Steal a portion of enemy's mana on hit",
+      "conversionRate": 0.15
+    },
+    "riposte": {
+      "name": "Riposte",
+      "type": "reactive",
+      "icon": "⚡",
+      "description": "After dodging, automatically counterattack",
+      "chance": 0.75,
+      "damageMultiplier": 0.80,
+      "condition": "afterDodge"
+    },
+    "overwhelm": {
+      "name": "Overwhelm",
+      "type": "conditional",
+      "icon": "🌪️",
+      "description": "Excess damage from killing a target carries to another",
+      "condition": "killTarget",
+      "carryOverRate": 0.50
+    },
+    "reave": {
+      "name": "Reave",
+      "type": "passive",
+      "icon": "👻",
+      "description": "Attacks steal temporary stats from enemies",
+      "statStealRate": 0.10,
+      "duration": 3
+    },
+    "amplify": {
+      "name": "Amplify",
+      "type": "stacking",
+      "icon": "📢",
+      "description": "Each consecutive hit increases damage to the same target",
+      "stackValue": 0.10,
+      "maxStacks": 10
+    },
+    "shred": {
+      "name": "Shred",
+      "type": "passive",
+      "icon": "🪓",
+      "description": "Attacks reduce enemy armor temporarily",
+      "armorReduction": 0.15,
+      "duration": 2
+    },
+    "drain": {
+      "name": "Drain",
+      "type": "passive",
+      "icon": "🌑",
+      "description": "Convert damage dealt into temporary shield",
+      "conversionRate": 0.25
+    }
+  },
+
+  "resistanceTypes": {
+    "physical": {
+      "name": "Physical Resistance",
+      "icon": "🛡️",
+      "description": "Reduces physical damage taken"
+    },
+    "magical": {
+      "name": "Magic Resistance",
+      "icon": "✨",
+      "description": "Reduces magical damage taken"
+    },
+    "elemental": {
+      "name": "Elemental Resistance",
+      "icon": "🔥💧❄️",
+      "description": "Reduces damage from elemental sources"
+    },
+    "status": {
+      "name": "Status Resistance",
+      "icon": "💊",
+      "description": "Reduces duration and potency of status effects"
+    },
+    "critical": {
+      "name": "Critical Resistance",
+      "icon": "💎",
+      "description": "Reduces chance of being critically hit"
+    },
+    "true": {
+      "name": "True Resistance",
+      "icon": "🏰",
+      "description": "Reduces true damage (very rare)"
+    }
+  },
+
+  "evasionTypes": {
+    "dodge": {
+      "name": "Dodge",
+      "icon": "💨",
+      "description": "Chance to completely avoid physical attacks"
+    },
+    "spellDodge": {
+      "name": "Spell Dodge",
+      "icon": "🌀",
+      "description": "Chance to completely avoid spell damage"
+    },
+    "parry": {
+      "name": "Parry",
+      "icon": "🗡️",
+      "description": "Chance to block and reduce melee damage"
+    },
+    "deflect": {
+      "name": "Deflect",
+      "icon": "🔄",
+      "description": "Chance to redirect projectiles back at attacker"
+    },
+    "phase": {
+      "name": "Phase",
+      "icon": "👻",
+      "description": "Become incorporeal, avoiding all damage types briefly"
     }
   },
 

@@ -1,0 +1,165 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5kj6x8skill_tt"]
+
+[ext_resource type="Script" path="res://battle-manager/battlehud/skill_tooltip.gd" id="1_tooltip"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tooltip_bg"]
+bg_color = Color(0.08, 0.08, 0.12, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.5, 0.7, 1, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_separator"]
+bg_color = Color(0.4, 0.6, 1, 0.3)
+
+[node name="SkillTooltip" type="PanelContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(480, 0)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+offset_right = 500.0
+offset_bottom = 430.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tooltip_bg")
+script = ExtResource("1_tooltip")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IconRect" type="ColorRect" parent="MarginContainer/VBoxContainer/Header"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+color = Color(1, 0.3, 0.2, 1)
+
+[node name="HeaderInfo" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="SkillName" type="Label" parent="MarginContainer/VBoxContainer/Header/HeaderInfo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Skill Name"
+
+[node name="SkillType" type="Label" parent="MarginContainer/VBoxContainer/Header/HeaderInfo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "Offensive • Fire Element"
+
+[node name="Separator1" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_separator")
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 15
+text = "Unleashes a powerful fireball that engulfs the enemy in flames, dealing devastating fire damage."
+autowrap_mode = 3
+
+[node name="Separator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_separator")
+
+[node name="Stats" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Power" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Stats/Power"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "⚔️ Power:"
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/Stats/Power"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.7, 0.3, 1)
+theme_override_font_sizes/font_size = 14
+text = "65"
+
+[node name="Accuracy" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Stats/Accuracy"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "🎯 Accuracy:"
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/Stats/Accuracy"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "95%"
+
+[node name="CritRate" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Stats/CritRate"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "✨ Crit Rate:"
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/Stats/CritRate"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "10%"
+
+[node name="Cost" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Stats/Cost"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "💧 SP Cost:"
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/Stats/Cost"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "15"
+
+[node name="Separator3" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_separator")
+
+[node name="AdditionalInfo" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.7, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "🔥 Burn Chance: 25% (3 turns)
+💥 Extra damage vs Ice enemies"
+autowrap_mode = 3
